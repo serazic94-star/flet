@@ -317,10 +317,12 @@ def main(page: ft.Page):
 
         weight_page = ft.Container(
             expand=True,
-            padding=20,
+            alignment=ft.Alignment(0, 0), # 센터
             content=ft.Column(
+                alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 spacing=20,
+                tight=True, 
                 controls=[
                     ft.Text(
                         "체중 기록 화면",
