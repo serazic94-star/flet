@@ -167,7 +167,7 @@ def main(page: ft.Page):
         expand=True,
         padding=ft.Padding.symmetric(horizontal=20, vertical=10),
         content=ft.Column(
-            scroll=ft.ScrollMode.AUTO,
+            scroll=ft.ScrollMode.AUTO, # 스크롤 기능 
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20,
             controls=[

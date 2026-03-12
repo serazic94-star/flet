@@ -37,9 +37,9 @@ def main(page: ft.Page):
                     width=100,
                     height=100,
                     border_radius=50,
-                    clip_behavior=ft.ClipBehavior.HARD_EDGE,
+                    clip_behavior=ft.ClipBehavior.HARD_EDGE, # 이미지가 컨테이너 밖으로 튀어나가지 못하게 자르는 역할
                     bgcolor=ft.Colors.WHITE,
-                    content=ft.Image(
+                    content=ft.Image( # 강아지 사진
                         src="dog.jpeg",
                         width=100,
                         height=100,
