@@ -24,4 +24,4 @@ def main(page: ft.Page):
         ft.ElevatedButton("확인", on_click=show)
     )
 
-ft.app(main)
+ft.run(main, view=ft.AppView.WEB_BROWSER)

@@ -16,4 +16,4 @@ def main(page: ft.Page):
         ft.ElevatedButton("저장", on_click=open_dialog)
     )
 
-ft.app(main)
+ft.run(main, view=ft.AppView.WEB_BROWSER)
