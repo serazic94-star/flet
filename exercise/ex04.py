@@ -15,4 +15,4 @@ def main(page: ft.Page):
         result
     )
 
-ft.app(main)
+ft.run(main, view=ft.AppView.WEB_BROWSER)

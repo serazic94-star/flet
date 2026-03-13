@@ -8,4 +8,4 @@ def main(page: ft.Page):
     trailing=ft.Icon(ft.Icons.ARROW_FORWARD)
   )
 )
-ft.app(main)
+ft.run(main, view=ft.AppView.WEB_BROWSER)

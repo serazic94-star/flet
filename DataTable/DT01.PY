@@ -19,4 +19,4 @@ def main(page: ft.Page):
 
     page.add(table)
 
-ft.app(main)
+ft.run(main, view=ft.AppView.WEB_BROWSER)
