@@ -2,6 +2,7 @@ import flet as ft
 import flet_charts as fch   # 체중 그래프를 그릴 때 쓰는 라이브러리
 
 
+
 def main(page: ft.Page):
     # =========================================================
     # 1. 페이지 기본 설정
