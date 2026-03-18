@@ -1,14 +1,14 @@
 import flet as ft
 
 # 🔥 [추가] long_box 함수 (기존 Container 3개를 대체)
-def long_box(text):
+def long_box(text, bgcolor = ft.Colors.WHITE, text_color=ft.Colors.BLACK):
     return ft.Container(
         width=350,
         height=50,
-        bgcolor=ft.Colors.WHITE,
         border=ft.border.all(1, ft.Colors.GREY_300),
         border_radius=10,
         padding=10,
+        bgcolor=bgcolor,
         content=ft.Column(
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -16,6 +16,17 @@ def long_box(text):
                 ft.Text(text, size=14, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
             ],
         ),
+    )
+
+def input_box(label=None, hint_text=None):
+    return ft.TextField(
+        width=350,
+        height=50,
+        border_radius=10,
+        border_color=ft.Colors.GREY_300,
+        focused_border_color=ft.Colors.GREY_400,
+        hint_text = hint_text,
+        label=label,  # 선택적으로 라벨도 넣을 수 있음
     )
 
 def main(page: ft.Page):
@@ -62,15 +73,27 @@ def main(page: ft.Page):
     )
 
     body = ft.Container(
-        padding=ft.padding.only(top=-250),  # 🔥 (기존 ft.Padding → ft.padding으로 수정 권장)
+        padding=ft.padding.only(top=-150),  # 🔥 (기존 ft.Padding → ft.padding으로 수정 권장)
         content=ft.Column(
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20,
             controls=[
+                ft.Container(
+                    width=float("inf"),  # 👉 전체 너비 차지
+                    alignment=ft.Alignment(-1, 0),  # 👉 왼쪽 정렬  # 👈 왼쪽 이동
+                    content=ft.Icon(ft.Icons.ARROW_BACK),
+                ),
                 title_text,
                 continue_cards,
                 stop_line,
-                long_box("Continue with Email"),
+                long_box("Continue with Email"),                   
+                  ft.Container(
+                  width=350,
+                  alignment=ft.Alignment(-1, 0),
+                  content=ft.Text("이메일"),
+              ),
+                input_box(hint_text="이메일 주소를 입력하세요"),
+                long_box("Continue", bgcolor=ft.Colors.YELLOW)
             ],
         ),
     )
