@@ -73,7 +73,7 @@ def main(page: ft.Page):
     )
 
     body = ft.Container(
-        padding=ft.padding.only(top=-150),  # 🔥 (기존 ft.Padding → ft.padding으로 수정 권장)
+        padding=ft.padding.only(top=30),  # 🔥 (기존 ft.Padding → ft.padding으로 수정 권장)
         content=ft.Column(
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20,
