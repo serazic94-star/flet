@@ -61,7 +61,7 @@ def main(page: ft.Page):
                 ft.Text("닉네임"),
                 input_box("닉네임"),
 
-                section_gap(80),  # 👉 여기서 거리 조절
+                section_gap(80),  #  👉 여기서 거리 조절
 
                 long_box("Continue" , bgcolor=ft.Colors.YELLOW),
             ],
