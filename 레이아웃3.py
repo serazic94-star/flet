@@ -14,7 +14,7 @@ def input_box(label=None, hint_text=None):
         label=label,  # 선택적으로 라벨도 넣을 수 있음
     )
 
-def long_box(text, bgcolor = ft.Colors.WHITE, text_color=ft.Colors.BLACK):
+def long_box(text, bgcolor = ft.Colors.WHITE, text_color=ft.Colors.BLACK, on_click=None):
     return ft.Container(
         width=350,
         height=50,
@@ -22,12 +22,26 @@ def long_box(text, bgcolor = ft.Colors.WHITE, text_color=ft.Colors.BLACK):
         border_radius=10,
         padding=10,
         bgcolor=bgcolor,
+        on_click=on_click,
         content=ft.Column(
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
                 ft.Text(text, size=14, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
             ],
+        ),
+    )
+
+
+def bottom_continue_button(on_click=None):
+    return ft.Container(
+        alignment=ft.Alignment(0, 1),
+        padding=ft.padding.only(bottom=20),
+        content=long_box(
+            "Continue",
+            bgcolor=ft.Colors.YELLOW,
+            text_color=ft.Colors.BLACK,
+            on_click=on_click,
         ),
     )
 
@@ -61,9 +75,9 @@ def main(page: ft.Page):
                 ft.Text("닉네임"),
                 input_box("닉네임"),
 
-                section_gap(80),  #  👉 여기서 거리 조절
+                # section_gap(80),  #  👉 여기서 거리 조절
 
-                long_box("Continue" , bgcolor=ft.Colors.YELLOW),
+                bottom_continue_button()
             ],
         ),
     )
