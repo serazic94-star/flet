@@ -63,16 +63,16 @@ def main(page: ft.Page):
                     alignment=ft.Alignment(-1, 0),  # 👉 왼쪽 정렬  # 👈 왼쪽 이동
                     content=ft.Icon(ft.Icons.ARROW_BACK),
                 ),
-                ft.Text("Welcome to 똑똑", size=20),
-                ft.Text("똑똑🚪✊ 우리집 강아지가 마지막 한알을 먹기 전", size=10),
-                ft.Text("문앞에 사료가 도착합니다", size=10),
+                ft.Text("Welcome to 똑똑", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=20),
+                ft.Text("똑똑🚪✊ 우리집 강아지가 마지막 한알을 먹기 전", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=10),
+                ft.Text("문앞에 사료가 도착합니다", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=10),
 
-                ft.Text("프로필을 완성하세요.", size=30),
+                ft.Text("프로필을 완성하세요.", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=30),
 
-                ft.Text("이메일"),
+                ft.Text("이메일", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
                 input_box("example@gmail.com"),
 
-                ft.Text("닉네임"),
+                ft.Text("닉네임", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
                 input_box("닉네임"),
 
                 # section_gap(80),  #  👉 여기서 거리 조절

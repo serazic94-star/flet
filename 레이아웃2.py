@@ -73,7 +73,7 @@ def main(page: ft.Page):
     )
 
     body = ft.Container(
-        padding=ft.padding.only(top=30),  # 🔥 (기존 ft.Padding → ft.padding으로 수정 권장)
+        padding=ft.padding.only(top=0),  # 🔥 (기존 ft.Padding → ft.padding으로 수정 권장)
         content=ft.Column(
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20,
@@ -90,7 +90,7 @@ def main(page: ft.Page):
                   ft.Container(
                   width=350,
                   alignment=ft.Alignment(-1, 0),
-                  content=ft.Text("이메일"),
+                  content=ft.Text("이메일", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
               ),
                 input_box(hint_text="이메일 주소를 입력하세요"),
                 long_box("Continue", bgcolor=ft.Colors.YELLOW)

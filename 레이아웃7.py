@@ -12,8 +12,8 @@ def about_dog():
     return ft.Column(
         spacing=0,
         controls=[
-            ft.Text("About your Dog", size=30),
-            ft.Text("반려동물의 기본 정보를 입력하세요", size=15),
+            ft.Text("About your Dog", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=30),
+            ft.Text("반려동물의 기본 정보를 입력하세요", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=15),
         ],
     )
 
@@ -78,10 +78,10 @@ def main(page: ft.Page):
                                   margin=ft.margin.only(top=50),
                                   content=about_dog(),
                               ),
-                              ft.Text("알레르기"),
+                              ft.Text("알레르기", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
                               input_box("반려동물의 알레르기를 적어주세요"),
 
-                              ft.Text("질병"),
+                              ft.Text("질병", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
                               input_box("반려동물의 질병을 적어주세요"),
 
                               bottom_continue_button(),

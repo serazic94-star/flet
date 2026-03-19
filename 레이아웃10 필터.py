@@ -58,12 +58,63 @@ def bottom_continue_button(on_click=None):
         ),
     )
 
+def invisible_checkbox(text):
+    return ft.Container(
+        width=350,
+        height=50,
+        border=None,
+        border_radius=10,
+        padding=10,
+        content=ft.Row(
+            alignment=ft.MainAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                ft.Text(text, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                ft.Checkbox(),
+            ],
+        ),
+    )
+
 def main(page: ft.Page):
     page.bgcolor = ft.Colors.WHITE
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.scroll = ft.ScrollMode.AUTO
     page.title = "For Dog5"
+
+       #주소 팁 닫기
+    def close_tip(e=None):
+      harim_bottom_tip_sheet.open = False
+      page.update()
+
+# 주소 팁 bottomsheet 정의하기
+    harim_bottom_tip_sheet = ft.BottomSheet(
+
+
+      content=ft.Container(
+          padding=20,
+          content=ft.Column(
+              tight=True,
+            controls = [
+                  ft.Text("사료 선택", size=25, weight='bold'),
+                  ft.Divider(),
+                  invisible_checkbox("All categories"),
+                  invisible_checkbox("Smart watches"),
+                  invisible_checkbox("하림 가맛시"),
+                  invisible_checkbox("하림 가맛시"),
+                  invisible_checkbox("하림 가맛시"),
+                  ft.Container(height=10),
+            ],
+          ),
+      )
+    )
+
+    # 앱이 시작될때 bottomSheet을 띄우기
+    def show_inital_tip(e=None):
+      harim_bottom_tip_sheet.open = True
+      page.update()
+
+
 
     body = ft.Container(
                       padding=ft.padding.only(top=0), # 🔥 (1) 전체 레이아웃을 아래로 내림 음수 제거
@@ -90,6 +141,9 @@ def main(page: ft.Page):
                       )
                   
               
+  ### 페이지에 BottomSheet를 등록하기
+    page.overlay.append(harim_bottom_tip_sheet)
+    show_inital_tip()
     page.add(body) 
 
 

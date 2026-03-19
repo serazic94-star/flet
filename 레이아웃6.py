@@ -12,8 +12,8 @@ def about_dog():
     return ft.Column(
         spacing=0,
         controls=[
-            ft.Text("About your Dog", size=30),
-            ft.Text("반려동물의 기본 정보를 입력하세요", size=15),
+            ft.Text("About your Dog", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=30),
+            ft.Text("반려동물의 기본 정보를 입력하세요", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=15),
         ],
     )
 
@@ -35,20 +35,19 @@ def long_box(text, bgcolor = ft.Colors.WHITE, text_color=ft.Colors.BLACK, on_cli
         ),
     )
 
-def invisible_box(text, bgcolor = ft.Colors.WHITE, text_color=ft.Colors.BLACK, on_click=None):
+def invisible_checkbox(text):
     return ft.Container(
         width=350,
         height=50,
         border=None,
         border_radius=10,
         padding=10,
-        bgcolor=bgcolor,
-        on_click=on_click,
-        content=ft.Column(
-            alignment=ft.MainAxisAlignment.CENTER,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        content=ft.Row(
+            alignment=ft.MainAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
-                ft.Text(text, size=14, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                ft.Checkbox(),
+                ft.Text(text, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
             ],
         ),
     )
@@ -87,15 +86,15 @@ def main(page: ft.Page):
                             margin=ft.margin.only(top=50),
                             content=about_dog(),
                         ),
-                        ft.Text("급여 시간"),
-                        ft.Checkbox("아침"),
-                        ft.Checkbox("점심"),
-                        ft.Checkbox("저녁"),
+                        ft.Text("급여 시간", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                        invisible_checkbox("아침"),
+                        invisible_checkbox("점심"),
+                        invisible_checkbox("저녁"),
 
-                        ft.Text("산책 시간"),
-                        ft.Checkbox("하루 30분"),
-                        ft.Checkbox("하루 30분 이상"),
-                        ft.Checkbox("하루 1시간 이상"),
+                        ft.Text("산책 시간", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                        invisible_checkbox("하루 30분"),
+                        invisible_checkbox("하루 30분 이상"),
+                        invisible_checkbox("하루 1시간 이상"),
                         
 
                         bottom_continue_button(),

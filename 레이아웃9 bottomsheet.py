@@ -65,6 +65,58 @@ def main(page: ft.Page):
     page.scroll = ft.ScrollMode.AUTO
     page.title = "For Dog5"
 
+       #주소 팁 닫기
+    def close_tip(e=None):
+      harim_bottom_tip_sheet.open = False
+      page.update()
+
+# 주소 팁 bottomsheet 정의하기
+    harim_bottom_tip_sheet = ft.BottomSheet(
+        # ✅ 뒤 배경 안 까맣게
+        barrier_color=ft.Colors.TRANSPARENT,
+
+        # ✅ 바텀시트 자체 배경색
+        bgcolor=ft.Colors.YELLOW,
+
+        # ✅ 윗부분 둥글게
+        shape=ft.RoundedRectangleBorder(
+            radius=ft.BorderRadius.only(
+                top_left=100,
+                top_right=100,
+            )
+        ),
+
+        size_constraints=ft.BoxConstraints( # ✅ 높이를 크게
+            max_height=700,   # 필요하면 450, 500으로 더 키워도 됨
+            min_height=430,
+        ),
+
+      content=ft.Container(
+          bgcolor=ft.Colors.YELLOW_600,  # ✅ 여기 추가
+          padding=20,
+          content=ft.Column(
+              tight=True,
+            controls = [
+                  ft.Text("사료 선택", size=25, weight='bold'),
+                  ft.Divider(),
+                  ft.Text("하림 가맛시"),
+                  ft.Text("하림 가맛시"),
+                  ft.Text("하림 가맛시"),
+                  ft.Text("하림 가맛시"),
+                  ft.Text("하림 가맛시"),
+                  ft.Container(height=10),
+            ],
+          ),
+      )
+    )
+
+    # 앱이 시작될때 bottomSheet을 띄우기
+    def show_inital_tip(e=None):
+      harim_bottom_tip_sheet.open = True
+      page.update()
+
+
+
     body = ft.Container(
                       padding=ft.padding.only(top=0), # 🔥 (1) 전체 레이아웃을 아래로 내림 음수 제거
                       content=ft.Column(
@@ -90,6 +142,9 @@ def main(page: ft.Page):
                       )
                   
               
+  ### 페이지에 BottomSheet를 등록하기
+    page.overlay.append(harim_bottom_tip_sheet)
+    show_inital_tip()
     page.add(body) 
 
 

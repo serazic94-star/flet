@@ -12,8 +12,8 @@ def about_dog():
     return ft.Column(
         spacing=0,
         controls=[
-            ft.Text("About your Dog", size=30),
-            ft.Text("반려동물의 기본 정보를 입력하세요", size=15),
+            ft.Text("About your Dog", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=30),
+            ft.Text("반려동물의 기본 정보를 입력하세요", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK, size=15),
         ],
     )
 
@@ -70,7 +70,7 @@ def main(page: ft.Page):
                         content=about_dog(),
                     ),
     
-                    ft.Text("반려동물의 체형은 몇단계인가요?"),
+                    ft.Text("반려동물의 체형은 몇단계인가요?", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
                         # 👇 여기 추가
                     ft.Container(
                         alignment=ft.Alignment(0, 0),  # 가운데 정렬
