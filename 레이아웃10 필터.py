@@ -89,21 +89,22 @@ def main(page: ft.Page):
 
 # 주소 팁 bottomsheet 정의하기
     harim_bottom_tip_sheet = ft.BottomSheet(
-
+    bgcolor=ft.Colors.WHITE,  # ✅ 여기 추가
 
       content=ft.Container(
           padding=20,
           content=ft.Column(
               tight=True,
             controls = [
-                  ft.Text("사료 선택", size=25, weight='bold'),
+                  ft.Text("Filter", size=25, weight='bold', color=ft.Colors.BLACK),
                   ft.Divider(),
                   invisible_checkbox("All categories"),
                   invisible_checkbox("Smart watches"),
-                  invisible_checkbox("하림 가맛시"),
-                  invisible_checkbox("하림 가맛시"),
-                  invisible_checkbox("하림 가맛시"),
-                  ft.Container(height=10),
+                  invisible_checkbox("Cell phones & accessories"),
+                  invisible_checkbox("Sporting goods"),
+                  invisible_checkbox("Computer"),
+                  long_box("Continue with Email"),
+                  long_box("Continue with Email"),
             ],
           ),
       )

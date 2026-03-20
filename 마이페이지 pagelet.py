@@ -1,6 +1,14 @@
 import flet as ft
 
-def custom_appbar(title="중앙 텍스트", on_menu_click=None):
+def custom_appbar(title="중앙 텍스트"):
+    right_icons = ft.Row(
+        spacing=8,
+        controls=[
+            ft.Icon(ft.Icons.SEARCH, color=ft.Colors.BLACK),
+            ft.Icon(ft.Icons.NOTIFICATIONS, color=ft.Colors.BLACK),
+        ],
+    )
+
     return ft.Container(
         height=60,
         padding=ft.padding.symmetric(horizontal=16),
@@ -8,56 +16,21 @@ def custom_appbar(title="중앙 텍스트", on_menu_click=None):
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
-                ft.IconButton(
-                    icon=ft.Icons.MENU,
-                    icon_color=ft.Colors.BLACK,
-                    on_click=on_menu_click,
+                ft.Container(width=56),  # 왼쪽 빈자리
+                ft.Text(
+                    title,
+                    size=20,
+                    weight=ft.FontWeight.W_500,
+                    color=ft.Colors.BLACK,
+                    text_align=ft.TextAlign.CENTER,
                 ),
-                ft.Text(title, size=20, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
-                ft.Row(
-                    spacing=8,
-                    controls=[
-                        ft.Icon(ft.Icons.SEARCH, color=ft.Colors.BLACK),
-                        ft.Icon(ft.Icons.NOTIFICATIONS, color=ft.Colors.BLACK),
-                    ],
+                ft.Container(
+                    width=56,   # 오른쪽 아이콘 자리와 비슷하게 맞춤
+                    content=right_icons,
+                    alignment=ft.Alignment(1, 0),
                 ),
             ],
         ),
-    )
-
-def profile_card(image_src, name, weight):
-    return ft.Row(
-        alignment=ft.MainAxisAlignment.CENTER,  # 👉 가로 중앙
-        vertical_alignment=ft.CrossAxisAlignment.CENTER,  # 👉 세로 중앙
-        spacing=10,
-        controls=[
-            ft.Container(
-                width=100,
-                height=100,
-                border_radius=50,  # 👉 숫자 키우면 더 둥글어짐
-                alignment=ft.Alignment(0,0),
-                clip_behavior=ft.ClipBehavior.HARD_EDGE,
-                content=ft.Image(
-                    src=image_src,
-                    fit=ft.BoxFit.COVER,
-                    width=100,
-                    height=100,
-                ),
-            ),
-            ft.Column(
-                alignment=ft.MainAxisAlignment.CENTER,
-                expand=True,
-                controls = [ft.Container(
-                    margin=ft.margin.only(left=60),
-                    content=ft.Text(name, size=14, weight=ft.FontWeight.BOLD),
-                ),
-                ft.Container(
-                    margin=ft.margin.only(left=60),
-                    content=ft.Text(weight, size=11, color=ft.Colors.GREY),
-                ),
-            ],
-            ),
-        ],
     )
 
 
@@ -102,7 +75,7 @@ def custom_bottom_appbar(selected_index=0, on_tab_change=None):
         shape=ft.CircularRectangleNotchShape(),  # ✅ 가운데 홈(파인 부분) 생성
         content=ft.Row(
             spacing=8,
-            alignment=ft.MainAxisAlignment.SPACE_AROUND,
+            alignment=ft.MainAxisAlignment.SPACE_AROUND, # ✅ 버튼 사이를 자연스럽게 여백 주기 
             controls=[
                 nav_item(
                     icon,
@@ -131,18 +104,7 @@ def main(page: ft.Page):
         expand=True,
         content=ft.Container(),  # ✅ 필수
         bgcolor=ft.Colors.YELLOW,  # ✅ 이게 있으니까 검은 음영이 사라짐 
-        end_drawer=ft.NavigationDrawer(
-            controls=[
-                ft.NavigationDrawerDestination(icon=ft.Icons.HOME, label="홈"),
-                ft.NavigationDrawerDestination(icon=ft.Icons.SETTINGS, label="설정"),
-                ft.NavigationDrawerDestination(icon=ft.Icons.INFO, label="안내"),
-            ],
-        ),
     )
-
-    # ✅ 추가: drawer 여는 함수
-    async def open_end_drawer(e):
-        await pagelet.show_end_drawer()
 
     # ✅ 추가: 가운데 개밥그릇 버튼
     pagelet.floating_action_button = ft.FloatingActionButton(
@@ -159,9 +121,42 @@ def main(page: ft.Page):
     # ✅ 추가: 하단바를 BottomAppBar로 연결
     pagelet.bottom_appbar = custom_bottom_appbar(
         selected_index=0,
-        on_tab_change=change_tab,
     )
 
+    def profile_card(image_src, name, weight):
+        return ft.Row(
+            alignment=ft.MainAxisAlignment.CENTER,  # 👉 가로 중앙
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,  # 👉 세로 중앙
+            spacing=10,
+            controls=[
+                ft.Container(
+                    width=100,
+                    height=100,
+                    border_radius=50,  # 👉 숫자 키우면 더 둥글어짐
+                    alignment=ft.Alignment(0,0),
+                    clip_behavior=ft.ClipBehavior.HARD_EDGE,
+                    content=ft.Image(
+                        src=image_src,
+                        fit=ft.BoxFit.COVER,
+                        width=100,
+                        height=100,
+                    ),
+                ),
+                ft.Column(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    expand=True,
+                    controls = [ft.Container(
+                        margin=ft.margin.only(left=60),
+                        content=ft.Text(name, size=14, weight=ft.FontWeight.BOLD, color=ft.Colors.BLACK)
+                    ),
+                    ft.Container(
+                        margin=ft.margin.only(left=60),
+                        content=ft.Text(weight, size=11, weight=ft.FontWeight.BOLD, color=ft.Colors.BLACK)
+                    ),
+                ],
+                ),
+            ],
+        )
 
     def menu_box(icon, title):
         return ft.Container(
@@ -180,8 +175,8 @@ def main(page: ft.Page):
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 spacing=8,
                 controls=[
-                    ft.Icon(icon, size=28),
-                    ft.Text(title, size=11),
+                    ft.Icon(icon, size=28, color=ft.Colors.BLACK),
+                    ft.Text(title, size=11, color=ft.Colors.BLACK),
                 ],
             ),
         )
@@ -262,6 +257,20 @@ def main(page: ft.Page):
             ],
         )
     
+    def invisible_middle_box(image_src):
+        return ft.Container(
+            width=200,   # 👉 크게 키움 (원하는 값으로 조절)
+            height=200,
+            bgcolor=ft.Colors.TRANSPARENT,  # 👉 완전 투명
+            border=None,  # 👉 테두리 없음
+            border_radius=20,  # 👉 둥글게 (선택)
+            alignment=ft.Alignment(0, 0),
+            content=ft.Image(
+                src=image_src,
+                fit=ft.BoxFit.COVER,  # 👉 꽉 채우기
+            ),
+        )
+
     menu_grid = ft.Column(
         spacing=14,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -305,15 +314,20 @@ def main(page: ft.Page):
                 expand=True,
                 spacing=0,
                 controls=[
-                    custom_appbar("Thur, 10 Oct", on_menu_click=open_end_drawer),
+                    custom_appbar("Thur, 10 Oct"),
                     ft.Container(
                         expand=True,
                         padding=20,
                         content=ft.Column(
                             scroll=ft.ScrollMode.AUTO,
                             controls=[
-                                profile_card("dogsize.png", "츄츄(2021.05.25)", "7.3kg"),
-                                ft.Container(height=100, bgcolor=ft.Colors.WHITE),                               
+                                profile_card("dog.jpeg", "츄츄(2021.05.25)", "7.3kg"),
+                                ft.Container(
+                                    height=100,
+                                    bgcolor=ft.Colors.WHITE,
+                                    alignment=ft.Alignment(0, 0),  # 👈 중앙 정렬
+                                    content=invisible_middle_box("surplus.png"),
+                                ),                               
                                 super_long_box([
                                             record_card(
                                                 "3/19",

@@ -46,6 +46,43 @@ def invisible_middle_box(image_src):
         ),
     )
 
+def invisible_large_box(image_src):
+    return ft.Container(
+        width=400,   # 👉 가로 기준만 잡는다 (이미지 크기의 기준)
+        # height 제거 ❗ → 비율 유지하려면 고정 높이 쓰면 안됨
+        
+        bgcolor=ft.Colors.TRANSPARENT,  # 👉 완전 투명 배경
+        border=None,  # 👉 테두리 없음
+        border_radius=20,  # 👉 둥글게 (필요 없으면 삭제 가능)
+
+        # clip_behavior 추가해야 border_radius 적용됨
+        clip_behavior=ft.ClipBehavior.HARD_EDGE,
+
+        alignment=ft.Alignment(0, 0),
+
+        content=ft.Image(
+            src=image_src,
+
+            # 👉 가로 기준으로 맞추고 세로는 자동으로 늘어남 (핵심)
+            width=400,
+
+            # 👉 비율 유지하면서 꽉 채움 (세로 잘릴 수 있음)
+            fit=ft.BoxFit.FIT_WIDTH,
+        ),
+    )
+def mid_box(text):
+    return ft.Container(
+        padding=ft.Padding.symmetric(horizontal=12, vertical=6),  # 👉 더 큼
+        bgcolor=ft.Colors.YELLOW_600,  
+        border_radius=8,
+        content=ft.Text(
+            text,
+            size=12,  # 👉 글자도 조금 키움
+            weight=ft.FontWeight.W_500,
+            color=ft.Colors.BLACK,
+        ),
+    )
+
 def nav_item(icon, label, selected=False, on_click=None):
     return ft.Container(
         expand=True,
@@ -178,14 +215,14 @@ def main(page: ft.Page):
             ),
         )
         
-    def micro_box(text):
+    def micro_iconbox(icon_name):
         return ft.Container(
             padding=ft.Padding.symmetric(horizontal=8, vertical=4),
-            bgcolor=ft.Colors.GREY_200,
+            bgcolor=ft.Colors.YELLOW_600,
             border_radius=6,
-            content=ft.Text(
-                text,
-                size=10,
+            content=ft.Icon(
+                icon_name,
+                size=16,
                 color=ft.Colors.BLACK,
             ),
         )
@@ -278,6 +315,39 @@ def main(page: ft.Page):
         ],
     )
 
+    # 주소 팁 bottomsheet 정의하기
+    harim_bottom_tip_sheet = ft.BottomSheet(
+      # ✅ 뒤 배경 안 까맣게
+        barrier_color=ft.Colors.TRANSPARENT,
+
+        # ✅ 바텀시트 자체 배경색
+        bgcolor=ft.Colors.BLUE_ACCENT,
+
+        size_constraints=ft.BoxConstraints( # ✅ 높이를 크게
+            max_width=350,   # 필요하면 450, 500으로 더 키워도 됨
+            max_height=100,
+        ),
+
+        content=ft.Container(
+            height=200,  # ✅ 높이 고정 (여기 숫자로 위치 조절)
+            padding=20,
+            alignment=ft.Alignment(0, -1),  # 👈 위쪽으로 살짝 (0,-1 ~ 0,1 조절)
+
+            content=ft.Column(
+                alignment=ft.MainAxisAlignment.START,  # 👈 위쪽 정렬
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                controls=[
+                    ft.Text("똑똑배송으로 주문하기", size=25, weight='bold'),
+                ],
+            ),
+        ),
+    )
+
+    # 앱이 시작될때 bottomSheet을 띄우기
+    def show_inital_tip(e=None):
+      harim_bottom_tip_sheet.open = True
+      page.update()
+
     # ✅ 기존 본문은 content로 유지
     pagelet.content = ft.Container(
         expand=True,
@@ -303,34 +373,43 @@ def main(page: ft.Page):
                         content=ft.Column(
                             scroll=ft.ScrollMode.AUTO,
                             controls=[
-                                ft.Text("🔥오늘 츄츄에게 딱 알맞은 급여량은", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
                                 ft.Container(
                                     height=100,
                                     bgcolor=ft.Colors.WHITE,
                                     alignment=ft.Alignment(0, 0),  # 👈 중앙 정렬
-                                    content=invisible_middle_box("scale.jpg"),
-                                ),                               
-                                super_long_box([
-                                            record_card(
-                                                "3/19",
-                                                "급여중인 사료 잔여량",
-                                                ["잔여량: 800g", "예상 소진일: 3월 28일"]
-                                            )
-                                        ]),
-                                ft.Text("추천사료", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
-                                menu_grid1,
-                                ft.Divider(),
-                                ft.Text("전체 상품", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                                    content=invisible_middle_box("product.jpg"),
+                                ),  
+                                ft.Container(
+                                    height=50,
+                                    bgcolor=ft.Colors.WHITE,
+                                    alignment=ft.Alignment(0, 0),
+                                    content=ft.Row(
+                                        alignment=ft.MainAxisAlignment.CENTER,
+                                        spacing=10,
+                                        controls=[
+                                            mid_box("바로구매"),
+                                            mid_box("장바구니"),
+                                            micro_iconbox(ft.Icons.FAVORITE)
+                                        ],
+                                    ),
+                                ),
                                 ft.Container(
                                     width=350,
                                     height=60,
-                                    border=ft.border.all(1, ft.Colors.GREY_300),
+                                    border=ft.border.all(1, ft.Colors.BLUE_600),
+                                    bgcolor=ft.Colors.BLUE_600,
                                     border_radius=10,
                                     padding=ft.padding.symmetric(horizontal=10),
                                     alignment=ft.Alignment(0, 0),
-                                    content=dropdown,
+                                    content= ft.Text("똑똑 배송"),
                                 ),
-                                menu_grid2,
+                                ft.Container(
+                                    width=350,
+                                    bgcolor=ft.Colors.WHITE,
+                                    alignment=ft.Alignment(0, 0),  # 👈 중앙 정렬
+                                    content=invisible_large_box("productpic1.jpg"),
+                                ),
+                                
                             ],
                         ),
                     ),
@@ -338,6 +417,10 @@ def main(page: ft.Page):
             ),
         ),
     )
+
+      ### 페이지에 BottomSheet를 등록하기
+    page.overlay.append(harim_bottom_tip_sheet)
+    show_inital_tip() 
 
     page.add(pagelet)
 
