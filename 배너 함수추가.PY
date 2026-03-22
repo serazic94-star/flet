@@ -265,7 +265,7 @@ def main(page: ft.Page):
                     white_long_box("내 정보" , left_icon=ft.Icons.SHOPPING_BAG),
                     white_long_box("마이 쇼핑" , left_icon=ft.Icons.SHOPPING_BAG),
                     white_long_box("공지사항" , left_icon=ft.Icons.SHOPPING_BAG),
-                    white_long_box("문의하기" , left_icon=ft.Icons.SHOPPING_BAG)
+                    white_long_box("문의하기" , left_icon=ft.Icons.SHOPPING_BAG),
                 ],
             ),
         ),
