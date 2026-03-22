@@ -118,14 +118,22 @@ def main(page: ft.Page):
         )
 
 
-    # ✅ 추가: 가운데 개밥그릇 버튼
     pagelet.floating_action_button = ft.FloatingActionButton(
-        content=ft.Icon(ft.Icons.PETS, color=ft.Colors.YELLOW_700, size=34),  # 개밥그릇 대신 우선 아이콘
+        content=ft.Container(
+            width=60,   # 👉 버튼 안 영역 키움
+            height=60,
+            alignment=ft.Alignment(0, 0),
+            content=ft.Image(
+                src="bowlradius.png",
+                fit=ft.BoxFit.CONTAIN,  # 👉 비율 유지
+            ),
+        ),
         bgcolor=ft.Colors.WHITE,
         shape=ft.CircleBorder(),
-        elevation=0,  # ✅ 그림자 제거
+        elevation=0,
         on_click=lambda e: print("가운데 버튼 클릭"),
     )
+
 
     # ✅ 추가: FAB 위치를 하단 중앙에 도킹
     pagelet.floating_action_button_location = ft.FloatingActionButtonLocation.CENTER_DOCKED

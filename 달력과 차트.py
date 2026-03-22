@@ -163,6 +163,19 @@ def banner(
     )
 
 
+def micro_box(text):
+    return ft.Container(
+        padding=ft.padding.symmetric(horizontal=8, vertical=4),
+        bgcolor=ft.Colors.GREY_200,
+        border_radius=6,
+        content=ft.Text(
+            text,
+            size=10,
+            color=ft.Colors.BLACK,
+        ),
+    )
+
+
 def main(page: ft.Page):
     page.padding = 0
     page.spacing = 0
@@ -178,9 +191,16 @@ def main(page: ft.Page):
         content=ft.Container(),
         bgcolor=ft.Colors.YELLOW,
     )
-
     pagelet.floating_action_button = ft.FloatingActionButton(
-        content=ft.Icon(ft.Icons.PETS, color=ft.Colors.YELLOW_700, size=34),
+        content=ft.Container(
+            width=60,   # 👉 버튼 안 영역 키움
+            height=60,
+            alignment=ft.Alignment(0, 0),
+            content=ft.Image(
+                src="bowlradius.png",
+                fit=ft.BoxFit.CONTAIN,  # 👉 비율 유지
+            ),
+        ),
         bgcolor=ft.Colors.WHITE,
         shape=ft.CircleBorder(),
         elevation=0,
@@ -304,6 +324,7 @@ def main(page: ft.Page):
                 width=0,
             ),
         )
+
     # -------------------------
     # 인라인 달력 상태
     # -------------------------
@@ -504,17 +525,11 @@ def main(page: ft.Page):
                     ft.Divider(),
 
                     ft.Text(
-                        "날짜별 기록",
+                        "일주일 상세 기록",
                         weight=ft.FontWeight.W_500,
                         color=ft.Colors.BLACK,
                     ),
-                    ft.Text(
-                        "Deeper screening results, for informational use only",
-                        weight=ft.FontWeight.W_500,
-                        color=ft.Colors.BLACK,
-                    ),
-
-                    banner(image_src="dog.jpeg", text="2026.03.19", bgcolor="#F4D52A"),
+                    banner(image_src="dog.jpeg", text="2026.03.12~2026.03.19", bgcolor="#F4D52A"),
 
                     ft.Container(height=12),
 
@@ -540,7 +555,6 @@ def main(page: ft.Page):
                                     padding=ft.padding.only(left=14, right=14, top=14, bottom=10),
                                     content=ft.Stack(
                                         controls=[
-                                            # 제목
                                             ft.Container(
                                                 alignment=ft.Alignment(0, -1),
                                                 content=ft.Text(
@@ -560,7 +574,6 @@ def main(page: ft.Page):
                                     content=ft.Column(
                                         spacing=12,
                                         controls=[
-                                            # 상단 텍스트 줄 + 오른쪽 버튼
                                             ft.Row(
                                                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                                                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
@@ -604,18 +617,35 @@ def main(page: ft.Page):
                                                 ],
                                             ),
 
-                                                # 차트 + 노란 점
-                                                    ft.Container(
-                                                        width=320,
-                                                        height=330,
-                                                        content=build_weight_chart(),
-                                                    ),
+                                            # 차트만 카드 안에 둠
+                                            ft.Container(
+                                                width=320,
+                                                height=330,
+                                                alignment=ft.Alignment(0, 0),
+                                                content=build_weight_chart(),
+                                            ),
                                         ],
                                     ),
                                 ),
                             ],
                         ),
                     ),
+
+                    # ✅ micro_box는 카드 바깥으로 뺌
+                    ft.Container(height=8),
+
+                    ft.Container(
+                        width=350,
+                        alignment=ft.Alignment(0, 0),
+                        content=ft.Row(
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            controls=[
+                                micro_box("일 평균 000kcal   |   목표 000kcal   |   달성 0회"),
+                            ],
+                        ),
+                    ),
+
+                    ft.Container(height=16),
                 ],
             ),
         ),

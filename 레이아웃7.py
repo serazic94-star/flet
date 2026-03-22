@@ -58,6 +58,34 @@ def bottom_continue_button(on_click=None):
         ),
     )
 
+def invisible_checkbox_row():
+    return ft.Container(
+        width=350,
+        height=50,
+        padding=10,
+        content=ft.Row(
+            alignment=ft.MainAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+            spacing=20,  # 👉 체크박스 간 간격
+            controls=[
+                ft.Row(
+                    spacing=5,
+                    controls=[
+                        ft.Checkbox(),
+                        ft.Text("있다", weight=ft.FontWeight.W_500),
+                    ],
+                ),
+                ft.Row(
+                    spacing=5,
+                    controls=[
+                        ft.Checkbox(),
+                        ft.Text("없다", weight=ft.FontWeight.W_500),
+                    ],
+                ),
+            ],
+        ),
+    )
+
 def main(page: ft.Page):
     page.bgcolor = ft.Colors.WHITE
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -79,11 +107,11 @@ def main(page: ft.Page):
                                   content=about_dog(),
                               ),
                               ft.Text("알레르기", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                              invisible_checkbox_row(),
                               input_box("반려동물의 알레르기를 적어주세요"),
-
                               ft.Text("질병", weight=ft.FontWeight.W_500, color=ft.Colors.BLACK),
+                              invisible_checkbox_row(),
                               input_box("반려동물의 질병을 적어주세요"),
-
                               bottom_continue_button(),
                           ],
                         ),
