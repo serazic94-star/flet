@@ -94,6 +94,7 @@ def custom_bottom_appbar(selected_index=0, on_tab_change=None):
 
 def banner(
     text="",
+    sub_text="",  # 👉 추가
     image_src=None,
     bgcolor=ft.Colors.WHITE,
     text_color=ft.Colors.BLACK,
@@ -118,12 +119,24 @@ def banner(
             )
         )
 
+    # 👉 여기 핵심 수정
     left_controls.append(
-        ft.Text(
-            text,
-            size=18,
-            weight=ft.FontWeight.W_600,
-            color=text_color,
+        ft.Column(
+            spacing=2,  # 👉 위아래 간격
+            alignment=ft.MainAxisAlignment.CENTER,
+            controls=[
+                ft.Text(
+                    text,
+                    size=18,
+                    weight=ft.FontWeight.W_600,
+                    color=text_color,
+                ),
+                ft.Text(
+                    sub_text,  # 👉 추가 텍스트
+                    size=12,
+                    color=ft.Colors.GREY_700,
+                ),
+            ],
         )
     )
 
@@ -522,14 +535,19 @@ def main(page: ft.Page):
 
                     ft.Container(height=2),
                     calendar_container,
-                    ft.Divider(),
-
+                    ft.Container(
+                        width=350,
+                        content=ft.Divider(
+                            thickness=1,
+                            color=ft.Colors.GREY_300,
+                        ),
+                    ),
                     ft.Text(
                         "일주일 상세 기록",
                         weight=ft.FontWeight.W_500,
                         color=ft.Colors.BLACK,
                     ),
-                    banner(image_src="dog.jpeg", text="2026.03.12~2026.03.19", bgcolor="#F4D52A"),
+                    banner(image_src="dog.jpeg", text="2026.03.12~2026.03.19", sub_text="산책 기록 요약", bgcolor="#F4D52A"),
 
                     ft.Container(height=12),
 

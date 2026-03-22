@@ -16,7 +16,7 @@ def custom_appbar(title="중앙 텍스트"):
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
-                ft.Container(width=56),  # 왼쪽 빈자리
+                ft.Container(width=56),
                 ft.Text(
                     title,
                     size=20,
@@ -25,7 +25,7 @@ def custom_appbar(title="중앙 텍스트"):
                     text_align=ft.TextAlign.CENTER,
                 ),
                 ft.Container(
-                    width=56,   # 오른쪽 아이콘 자리와 비슷하게 맞춤
+                    width=56,
                     content=right_icons,
                     alignment=ft.Alignment(1, 0),
                 ),
@@ -44,11 +44,7 @@ def nav_item(icon, label, selected=False, on_click=None):
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=4,
             controls=[
-                ft.Icon(
-                    icon,
-                    color=ft.Colors.BLACK,
-                    size=24,
-                ),
+                ft.Icon(icon, color=ft.Colors.BLACK, size=24),
                 ft.Text(
                     label,
                     color=ft.Colors.BLACK,
@@ -59,8 +55,6 @@ def nav_item(icon, label, selected=False, on_click=None):
         ),
     )
 
-
-# ✅ 수정: custom_navbar를 BottomAppBar용 내용으로 바꿈
 def custom_bottom_appbar(selected_index=0, on_tab_change=None):
     items = [
         (ft.Icons.HOME, "Home"),
@@ -71,7 +65,7 @@ def custom_bottom_appbar(selected_index=0, on_tab_change=None):
 
     return ft.BottomAppBar(
         bgcolor=ft.Colors.YELLOW,
-        shape=ft.CircularRectangleNotchShape(),  # ✅ 가운데 홈(파인 부분) 생성
+        shape=ft.CircularRectangleNotchShape(),
         content=ft.Row(
             spacing=8,
             alignment=ft.MainAxisAlignment.SPACE_AROUND,
@@ -90,30 +84,26 @@ def custom_bottom_appbar(selected_index=0, on_tab_change=None):
 def main(page: ft.Page):
     page.padding = 0
     page.spacing = 0
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.bgcolor = ft.Colors.TRANSPARENT
+    page.bgcolor = ft.Colors.WHITE
     page.appbar = None
 
     def change_tab(index):
         print("선택된 탭:", index)
 
-    # ✅ 추가: Pagelet 생성
     pagelet = ft.Pagelet(
         expand=True,
-        content=ft.Container(),  # ✅ 필수
-        bgcolor=ft.Colors.YELLOW,  # ✅ 이게 있으니까 검은 음영이 사라짐 
-        )
+        bgcolor=ft.Colors.YELLOW,
+        content=ft.Container(),  # 일단 기본값
+    )
 
-
-    # ✅ 추가: 가운데 버튼
     pagelet.floating_action_button = ft.FloatingActionButton(
         content=ft.Container(
-            width=60,   # 👉 버튼 안 영역 키움
+            width=60,
             height=60,
             alignment=ft.Alignment(0, 0),
             content=ft.Image(
                 src="bowlradius.png",
-                fit=ft.BoxFit.CONTAIN,  # 👉 비율 유지
+                fit=ft.BoxFit.CONTAIN,
             ),
         ),
         bgcolor=ft.Colors.WHITE,
@@ -122,16 +112,13 @@ def main(page: ft.Page):
         on_click=lambda e: print("가운데 버튼 클릭"),
     )
 
-    # ✅ 추가: FAB 위치를 하단 중앙에 도킹
     pagelet.floating_action_button_location = ft.FloatingActionButtonLocation.CENTER_DOCKED
-
-    # ✅ 추가: 하단바를 BottomAppBar로 연결
     pagelet.bottom_appbar = custom_bottom_appbar(
         selected_index=0,
         on_tab_change=change_tab,
     )
 
-    # ✅ 기존 본문은 content로 유지
+    # ✅ 여기서 SafeArea를 pagelet.content 안에 직접 넣어야 함
     pagelet.content = ft.Container(
         expand=True,
         gradient=ft.LinearGradient(
@@ -143,6 +130,25 @@ def main(page: ft.Page):
                 ft.Colors.YELLOW,
             ],
         ),
+        content=ft.SafeArea(
+            expand=True,
+            content=ft.Column(
+                expand=True,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                spacing=0,
+                controls=[
+                    custom_appbar("알림"),
+                    ft.Container(
+                        width=350,
+                        content=ft.Divider(
+                            thickness=1,
+                            color=ft.Colors.GREY_300,
+                        ),
+                    ),
+                    ft.Container(height=30),
+                ],
+            ),
+        ),
     )
 
     page.add(pagelet)
@@ -152,11 +158,11 @@ if __name__ == "__main__":
     import os
 
     if os.getenv("FLET_NO_BROWSER"):
-      webbrowser.open = lambda *args, **kwargs: None
+        webbrowser.open = lambda *args, **kwargs: None
 
     ft.run(
-      main,
-      assets_dir="assets",
-      view=ft.AppView.WEB_BROWSER,
-      port=34636,
+        main,
+        assets_dir="assets",
+        view=ft.AppView.WEB_BROWSER,
+        port=34636,
     )
