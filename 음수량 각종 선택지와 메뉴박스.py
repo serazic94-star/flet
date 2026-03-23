@@ -154,6 +154,50 @@ def banner(
         ),
     )
 
+def menu_grid_builder(menu_items):
+    rows = []
+
+    # 👉 3개씩 잘라서 Row 생성
+    for i in range(0, len(menu_items), 3):
+        row = ft.Row(
+            alignment=ft.MainAxisAlignment.CENTER,
+            spacing=14,
+            controls=[
+                menu_box(icon, text)
+                for icon, text in menu_items[i:i+3]
+            ],
+        )
+        rows.append(row)
+
+    return ft.Column(
+        spacing=14,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        controls=rows,
+    )
+
+def menu_box(icon, title):
+    return ft.Container(
+        width=95,
+        height=95,
+        bgcolor=ft.Colors.YELLOW_600,
+        border_radius=16,
+        alignment=ft.Alignment(0, 0),
+        shadow=ft.BoxShadow(
+            blur_radius=8,
+            spread_radius=1,
+            color=ft.Colors.BLACK12,
+        ),
+        content=ft.Column(
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            spacing=8,
+            controls=[
+                ft.Icon(icon, size=28, color=ft.Colors.BLACK),
+                ft.Text(title, size=11, color=ft.Colors.BLACK),
+            ],
+        ),
+    )
+
 
 def white_long_box2(
     text,
@@ -238,20 +282,6 @@ def mid_box(text):
             color=ft.Colors.BLACK,
         ),
     )
-
-def mid_box2(text):
-    return ft.Container(
-        padding=ft.Padding.symmetric(horizontal=12, vertical=6),  # 👉 더 큼
-        bgcolor=ft.Colors.GREY_100,  
-        border_radius=8,
-        content=ft.Text(
-            text,
-            size=12,  # 👉 글자도 조금 키움
-            weight=ft.FontWeight.W_500,
-            color=ft.Colors.BLACK,
-        ),
-    )
-
 
 
 def main(page: ft.Page):
@@ -428,6 +458,15 @@ def main(page: ft.Page):
     # ✅ 처음 실행 시에도 '전체' 탭 내용이 바로 보이게 강제 실행
     change_top_tab(0)
 
+    menu_grid = menu_grid_builder([
+        (ft.Icons.PETS, "반려동물"),
+        (ft.Icons.RECEIPT_LONG, "결제내역"),
+        (ft.Icons.FAVORITE, "찜 목록"),
+        (ft.Icons.SETTINGS, "설정"),
+        (ft.Icons.NOTIFICATIONS, "알림"),
+        (ft.Icons.HELP, "고객센터"),
+    ])
+
     pagelet.content = ft.Container(
         expand=True,
         gradient=ft.LinearGradient(
@@ -450,7 +489,8 @@ def main(page: ft.Page):
 
                     # ✅ 이건 탭 바깥에 항상 고정으로 보이는 박스
                     white_long_box2("2026.03.19", right_icon=ft.Icons.ADD),
-
+                    
+                    menu_grid,
                     # ✅ 상단 탭
                     top_tabs_area,
 
@@ -462,26 +502,14 @@ def main(page: ft.Page):
                             color=ft.Colors.GREY_300,
                         ),
                     ),
+
+
                     ft.Container(height=30),
 
                     # ✅ [스크롤 수정 3]
                     # tab_content 자체가 expand=True라서
                     # 위 요소들은 고정되고, 아래 내용 영역만 남은 공간에서 스크롤됨
                     tab_content,
-                    ft.Container(
-                        height=50,
-                        bgcolor=ft.Colors.WHITE,
-                        alignment=ft.Alignment(0, 0),
-                        content=ft.Row(
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            spacing=10,
-                            controls=[
-                                mid_box("수정"),
-                                mid_box("삭제"),
-                                mid_box2("저장"),
-                            ],
-                        ),
-                    ),
                 ],
             ),
         ),
