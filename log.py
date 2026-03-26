@@ -141,7 +141,7 @@ def banner(
     )
 
     # 배너 배경이 흰색이면 화살표 동그라미는 노란색
-    arrow_bg = "#F4D52A" if bgcolor == ft.Colors.WHITE else ft.Colors.WHITE
+    arrow_bg = ft.Colors.YELLOW if bgcolor == ft.Colors.WHITE else ft.Colors.WHITE
 
     return ft.Container(
         width=350,
@@ -547,7 +547,7 @@ def main(page: ft.Page):
                         weight=ft.FontWeight.W_500,
                         color=ft.Colors.BLACK,
                     ),
-                    banner(image_src="dog.jpeg", text="2026.03.12~2026.03.19", sub_text="산책 기록 요약", bgcolor="#F4D52A"),
+                    banner(image_src="dog.jpeg", text="2026.03.12~2026.03.19", sub_text="산책 기록 요약", bgcolor=ft.Colors.YELLOW),
 
                     ft.Container(height=12),
 
@@ -569,7 +569,7 @@ def main(page: ft.Page):
                                 # 상단 노란 헤더
                                 ft.Container(
                                     height=74,
-                                    bgcolor="#F2D21B",
+                                    bgcolor=ft.Colors.YELLOW,
                                     padding=ft.padding.only(left=14, right=14, top=14, bottom=10),
                                     content=ft.Stack(
                                         controls=[

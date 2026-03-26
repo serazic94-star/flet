@@ -337,7 +337,7 @@ def main(page: ft.Page):
                     white_long_box3("물 10ml를 마셨습니다", "오전 07:30"),
                     white_long_box3("물 10ml를 마셨습니다", "오전 07:30"),
                     white_long_box3("물 10ml를 마셨습니다", "오전 07:30"),
-                    white_long_box3("내 정보", "오전 07:30"),
+                    white_long_box3("사료 35g를 먹었습니다", "오전 07:30"),
                     white_long_box3("물 10ml를 마셨습니다", "오전 07:30"),
                     white_long_box3("물 10ml를 마셨습니다", "오전 07:30"),
                     white_long_box3("물 10ml를 마셨습니다", "오전 07:30"),

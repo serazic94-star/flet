@@ -358,8 +358,8 @@ if __name__ == "__main__":
       webbrowser.open = lambda *args, **kwargs: None
 
     ft.run(
-      main,
-      assets_dir="assets",
-      view=ft.AppView.WEB_BROWSER,
-      port=34636,
+        main,
+        assets_dir="assets",
+        view=ft.AppView.WEB_BROWSER,
+        port=34636,
     )

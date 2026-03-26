@@ -82,11 +82,12 @@ def main(page: ft.Page):
 
       content=ft.Container(
           padding=20,
+          bgcolor=ft.Colors.WHITE,  # ✅ 여기 추가 (핵심)
           content=ft.Column(
               tight=True,
             controls = [
-                  ft.Text("사료 선택", size=25, weight='bold'),
-                  ft.Divider(),
+                  ft.Text("사료 검색", size=25, weight='bold'),
+                  input_box("Search"),
                   ft.Text("하림 가맛시"),
                   ft.Text("하림 가맛시"),
                   ft.Text("하림 가맛시"),
