@@ -1,7 +1,7 @@
 import flet as ft
 
 
-def custom_appbar(title="중앙 텍스트"):
+def red_custom_appbar(title="중앙 텍스트"):
     right_icons = ft.Row(
         spacing=8,
         controls=[
@@ -328,7 +328,7 @@ def main(page: ft.Page):
                 expand=True,
                 spacing=0,
                 controls=[
-                    custom_appbar("개밥개밥푸드"),
+                    red_custom_appbar("개밥개밥푸드"),
                     ft.Container(
                         expand=True,
                         padding=20,
@@ -336,7 +336,7 @@ def main(page: ft.Page):
                             scroll=ft.ScrollMode.AUTO,
                             controls=[
                                 ft.Text(
-                                    "🔥오늘 츄츄에게 딱 알맞은 급여량은",
+                                    "츄츄에게 딱 맞춘 하루 권장량",
                                     weight=ft.FontWeight.W_500,
                                     color=ft.Colors.BLACK,
                                 ),
