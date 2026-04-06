@@ -160,6 +160,9 @@ def main(page: ft.Page):
             ),
         )
 
+    # ✅ 추천사료 한 칸(이미지 1개)을 만드는 전용 박스
+    # ✅ 화살표를 눌렀을 때 바뀌는 최종 대상은 이 박스들 안에 들어가는 이미지들임
+    # ✅ image_src 값이 current_recommend_index에 따라 달라지면서 화면 이미지가 바뀜
     def recommend_menu_box(image_src):
         return ft.Container(
             width=72,   # ✅ 수정: 추천사료 전용 박스 크기를 줄여서 모바일 폭에서도 안 넘치게 함
@@ -172,6 +175,10 @@ def main(page: ft.Page):
             ),
         )
 
+    # ✅ 현재 페이지(index)에 해당하는 추천사료 3개를 한 줄로 만드는 함수
+    # ✅ build_recommend_menu(0)이면 recommended_pages의 0번 묶음 이미지를 보여줌
+    # ✅ build_recommend_menu(1)이면 다음 묶음 이미지 3개로 갈아끼워진 Row를 새로 만들어줌
+    # ✅ 즉, 화살표 클릭 시 recommend_content.content 안에 다시 넣어지는 핵심 UI 생성 함수
     def build_recommend_menu(index):
         return ft.Row(
             alignment=ft.MainAxisAlignment.CENTER,
@@ -256,18 +263,33 @@ def main(page: ft.Page):
             ],
         )
 
+    # ✅ 추천사료 페이지 데이터
+    # ✅ 바깥 리스트 = 페이지 묶음
+    # ✅ 안쪽 리스트 = 한 페이지에서 보여줄 이미지 3개
+    # ✅ 예: current_recommend_index가 0이면 첫 번째 3개, 1이면 두 번째 3개가 선택됨
     recommended_pages = [
         ["raw.png", "raw.png", "raw.png"],      # ✅ 첫 번째 3개
         ["시저.png", "시저.png", "시저.png"],   # ✅ 두 번째 3개
         ["시저2.png", "시저2.png", "시저2.png"],  # ✅ 세 번째 3개
     ]
 
+    # ✅ 현재 몇 번째 추천사료 페이지를 보여주는지 저장하는 상태값
+    # ✅ 왼쪽/오른쪽 화살표를 누를 때 이 값이 줄거나 늘어남
+    # ✅ 이 값이 바뀌어야 어떤 이미지 묶음을 보여줄지 결정할 수 있음
     current_recommend_index = 0
 
+    # ✅ 추천사료 표시 영역 자체
+    # ✅ 처음에는 current_recommend_index = 0 이므로 첫 번째 추천사료 묶음이 들어감
+    # ✅ 화살표 클릭 후에는 이 Container의 content를 새 Row로 교체해서 화면을 바꿈
     recommend_content = ft.Container(
         content=build_recommend_menu(current_recommend_index)
     )
 
+    # ✅ 왼쪽 화살표 클릭 함수
+    # ✅ 현재 페이지가 0보다 크면 한 칸 이전 페이지로 이동
+    # ✅ current_recommend_index를 1 감소시킨 뒤
+    # ✅ recommend_content.content를 새 추천사료 Row로 교체
+    # ✅ 마지막으로 page.update()로 실제 화면에 변경사항 반영
     def show_prev_recommend(e):
         nonlocal current_recommend_index
         if current_recommend_index > 0:
@@ -275,6 +297,11 @@ def main(page: ft.Page):
             recommend_content.content = build_recommend_menu(current_recommend_index)
             page.update()
 
+    # ✅ 오른쪽 화살표 클릭 함수
+    # ✅ 현재 페이지가 마지막 페이지보다 앞에 있으면 한 칸 다음 페이지로 이동
+    # ✅ current_recommend_index를 1 증가시킨 뒤
+    # ✅ recommend_content.content를 새 추천사료 Row로 교체
+    # ✅ 마지막으로 page.update()로 실제 화면에 변경사항 반영
     def show_next_recommend(e):
         nonlocal current_recommend_index
         if current_recommend_index < len(recommended_pages) - 1:
@@ -372,13 +399,13 @@ def main(page: ft.Page):
                                                 content=ft.IconButton(
                                                     icon=ft.Icons.CHEVRON_LEFT,
                                                     icon_color=ft.Colors.RED,
-                                                    on_click=show_prev_recommend,
+                                                    on_click=show_prev_recommend,  # ✅ 왼쪽 화살표를 누르면 이전 추천사료 페이지로 이동
                                                 ),
                                             ),
                                             ft.Container(
                                                 expand=True,  # ✅ 수정: 기존 width=300 제거, 남는 공간을 유동적으로 써서 모바일에서도 안 잘리게 함
                                                 alignment=ft.Alignment(0, 0),
-                                                content=recommend_content,
+                                                content=recommend_content,  # ✅ 실제로 추천사료 이미지들이 들어가 있는 중앙 표시 영역
                                             ),
                                             ft.Container(
                                                 width=36,  # ✅ 수정: 오른쪽 화살표 자리도 따로 확보해서 모바일 폭에서도 사라지지 않게 함
@@ -386,7 +413,7 @@ def main(page: ft.Page):
                                                 content=ft.IconButton(
                                                     icon=ft.Icons.CHEVRON_RIGHT,
                                                     icon_color=ft.Colors.RED,
-                                                    on_click=show_next_recommend,
+                                                    on_click=show_next_recommend,  # ✅ 오른쪽 화살표를 누르면 다음 추천사료 페이지로 이동
                                                 ),
                                             ),
                                         ],

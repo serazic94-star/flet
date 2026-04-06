@@ -161,10 +161,37 @@ def white_large_box(
                         vertical_alignment=ft.CrossAxisAlignment.CENTER,
                         spacing=14,
                         controls=[
-                            ft.Radio(value="1주", label="1주"),
-                            ft.Radio(value="2주", label="2주"),
-                            ft.Radio(value="3주", label="3주"),
-                            ft.Radio(value="4주", label="4주"),
+                            ft.Radio(value="1주",
+                                     label="1주",
+                                     label_style=ft.TextStyle(  # ✅ 추가: 라벨 글자 진하게
+                            color=ft.Colors.BLACK,  # ✅ 추가
+                            weight=ft.FontWeight.W_500,  # ✅ 추가
+                            size=14,  # ✅ 추가
+                        ),
+                        ),
+                            ft.Radio(value="2주", 
+                                     label="2주",
+                                     label_style=ft.TextStyle(  # ✅ 추가: 라벨 글자 진하게
+                            color=ft.Colors.BLACK,  # ✅ 추가
+                            weight=ft.FontWeight.W_500,  # ✅ 추가
+                            size=14,  # ✅ 추가
+                        ),
+                        ),
+                            ft.Radio(value="3주", 
+                                     label="3주",
+                                     label_style=ft.TextStyle(  # ✅ 추가: 라벨 글자 진하게
+                            color=ft.Colors.BLACK,  # ✅ 추가
+                            weight=ft.FontWeight.W_500,  # ✅ 추가
+                            size=14,  # ✅ 추가
+                        ),
+                        ),
+                            ft.Radio(value="4주", 
+                                     label="4주",
+                                     label_style=ft.TextStyle(  # ✅ 추가: 라벨 글자 진하게
+                            color=ft.Colors.BLACK,  # ✅ 추가
+                            weight=ft.FontWeight.W_500,  # ✅ 추가
+                            size=14,  # ✅ 추가
+                        ),),
                         ],
                     )
                 ),
@@ -339,7 +366,7 @@ def main(page: ft.Page):
             src="bowlradius_red.png",
             width=40,
             height=40,
-            fit=ft.BoxFit.CONTAIN,
+            fit=ft.BoxFit.COVER,
         ),
         bgcolor=ft.Colors.WHITE,
         shape=ft.CircleBorder(),
